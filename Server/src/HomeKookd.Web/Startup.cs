@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
-namespace HomeKookd.Web
+using Microsoft.EntityFrameworkCore;
+namespace HomeKookd.API
 {
     public class Startup
     {
@@ -29,6 +29,8 @@ namespace HomeKookd.Web
         {
             // Add framework services.
             services.AddMvc();
+            Configuration.GetConnectionString("HomeKookd.main");
+            //services.AddDbContext
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
