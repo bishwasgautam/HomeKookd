@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HomeKookd.DataAccess
+namespace HomeKookd.DataAccess.HomeKookdMainContext.Enities
 {
     public class MealDetails
     {

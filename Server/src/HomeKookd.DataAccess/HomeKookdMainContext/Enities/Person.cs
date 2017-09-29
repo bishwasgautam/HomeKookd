@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HomeKookd.DataAccess
+namespace HomeKookd.DataAccess.HomeKookdMainContext.Enities
 {
     public class Person
     {
@@ -11,5 +11,7 @@ namespace HomeKookd.DataAccess
         public string Sex { get; set; }
         public IEnumerable<Address> Addresses { get; set; }
         public IEnumerable<Phone> Phones { get; set; }
+        //public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

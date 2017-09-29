@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using HomeKookd.DataAccess;
+
 namespace HomeKookd.API
 {
     public class Startup
@@ -29,8 +31,9 @@ namespace HomeKookd.API
         {
             // Add framework services.
             services.AddMvc();
-            Configuration.GetConnectionString("HomeKookd.main");
-            //services.AddDbContext
+
+            var homekookdmainCS = Configuration.GetConnectionString("HomeKookd.main");
+            services.AddDbContext<HomeKookdMainDataContext>(options => options.UseSqlServer(homekookdmainCS));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

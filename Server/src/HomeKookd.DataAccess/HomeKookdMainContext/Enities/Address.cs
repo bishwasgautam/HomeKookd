@@ -1,4 +1,4 @@
-﻿namespace HomeKookd.DataAccess
+﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Enities
 {
     public class Address
     {
@@ -9,5 +9,8 @@
         public string Zip { get; set; }
         public string Country { get; set; }
         public AddressType Type { get; set; }
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
+        
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System.Net;
+using HomeKookd.DataAccess.HomeKookdMainContext.Enities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeKookd.DataAccess
 {
-    public class HomeKookdMainContext : DbContext
+    public class HomeKookdMainDataContext : DbContext
     {
 
-        public HomeKookdMainContext(DbContextOptions<HomeKookdMainContext> options) : base(options)
+        public HomeKookdMainDataContext(DbContextOptions<HomeKookdMainDataContext> options) : base(options)
         {
             
         }
