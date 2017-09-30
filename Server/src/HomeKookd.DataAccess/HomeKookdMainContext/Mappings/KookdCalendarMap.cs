@@ -15,14 +15,4 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
 
         }
     }
-
-    public class HomeKookdMealPerDayMap : IEntityTypeConfiguration<HomeKookdMealPerDay>
-    {
-        public void Configure(EntityTypeBuilder<HomeKookdMealPerDay> builder)
-        {
-            builder.HasOne(hpd => hpd.HomeKookdMeal)
-                .WithOne(hkm => hkm.HomeKookdMealPerDay);
-
-        }
-    }
 }

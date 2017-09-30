@@ -25,8 +25,8 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Phone> Phones { get; set; }
-        public DbSet<HomeKookdMeal> HomeKookdMeals { get; set; }
-        public DbSet<HomeKookdMealPerDay> HomeKookdMealsPerDay { get; set; }
+        public DbSet<HomeKookdMealSetting> HomeKookdMeals { get; set; }
+        public DbSet<HomeKookdMeal> HomeKookdMealsPerDay { get; set; }
         public DbSet<KookdCalendar> KookdCalendars { get; set; }
         public DbSet<KookdSchedule> KookdSchedules { get; set; }
         public DbSet<Kook> Kooks { get; set; }

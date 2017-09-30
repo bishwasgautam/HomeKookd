@@ -8,13 +8,10 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         public int Id { get; set; }
 
         public DateTime ReadyAt { get; set; }
-
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
-
-        public bool IsRecurring { get; set; }
-        public RecurringFrequency RecurringFrequency { get; set; }
-        public int?  EveryXDay { get; set; }
+        public bool? IsRecurring { get; set; }
+        public int?  RecurringFrequencyInDays { get; set; }
+        public DateTime RecurStartDateTime { get; set; }
+        public DateTime RecurEndDateTime { get; set; } 
 
         [NotMapped]
         public bool IsLive
@@ -22,13 +19,13 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
             get
             {
                 var now = DateTime.UtcNow;
-                return now > StartDateTime && now < EndDateTime;
+                return now > RecurStartDateTime && now < RecurEndDateTime;
             }
         }
 
         //FKs
         public int HomeKookdMealId { get; set; }
-        public HomeKookdMeal HomeKookdMeal { get; set; }
+        public HomeKookdMealSetting HomeKookdMealSetting { get; set; }
 
     }
 }

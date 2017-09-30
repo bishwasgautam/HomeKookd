@@ -23,9 +23,14 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 
         public string GetFullNumber()
         {
-            return $"{CountryCode}{AreaCode}-{PhoneNumber}";
+            return $"{CountryCode}{AreaCode}{PhoneNumber}";
         }
 
-       
+        public string GetFullNumber(string format)
+        {
+            return string.Format(format, CountryCode, AreaCode, PhoneNumber);
+        }
+
+
     }
 }
