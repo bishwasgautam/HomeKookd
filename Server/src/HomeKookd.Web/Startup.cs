@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using HomeKookd.DataAccess;
+using HomeKookd.DataAccess.HomeKookdMainContext;
 
 namespace HomeKookd.API
 {

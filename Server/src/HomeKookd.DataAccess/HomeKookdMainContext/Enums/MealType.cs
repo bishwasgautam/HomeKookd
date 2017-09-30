@@ -1,4 +1,4 @@
-﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Enities
+﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Enums
 {
     public enum MealType
     {
