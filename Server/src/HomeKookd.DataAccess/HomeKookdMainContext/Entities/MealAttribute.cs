@@ -1,9 +1,11 @@
 ﻿using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
-    public class MealAttribute : IAuditable
+    [Table("MealAttributes")]
+    public class MealAttribute : IAuditable, IIdentifyable
     {
         public int Id { get; set; }
         public string  Attribute { get; set; }

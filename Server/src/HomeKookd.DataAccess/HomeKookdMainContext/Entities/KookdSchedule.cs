@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
+    [Table("KookdSchedules")]
     public class KookdSchedule
     {
         public int Id { get; set; }
@@ -24,7 +25,7 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         }
 
         //FKs
-        public int HomeKookdMealId { get; set; }
+        public int HomeKookdMealSettingId { get; set; }
         public HomeKookdMealSetting HomeKookdMealSetting { get; set; }
 
     }

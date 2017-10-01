@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
 {
-    public class KookdCalendarMap : IEntityTypeConfiguration<KookdCalendar>
+    public class KookdCalendarMap : IEntityTypeConfiguration<KookdMealCalendar>
     {
-        public void Configure(EntityTypeBuilder<KookdCalendar> builder)
+        public void Configure(EntityTypeBuilder<KookdMealCalendar> builder)
         {
-            builder.HasMany(kc => kc.HomeKookdMealsPerDay)
-                .WithOne(hpd => hpd.KookdCalendar)
+            builder.HasMany(kc => kc.HomeKookdMeals)
+                .WithOne(hpd => hpd.KookdMealCalendar)
                 .HasForeignKey(hpd => hpd.KookdCalendarId)
                 .OnDelete(DeleteBehavior.Cascade);
 

@@ -13,11 +13,12 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
                 .HasForeignKey(m => m.KitchenId);
 
             builder.HasOne(m => m.Kook)
-                .WithMany(k => k.Meals)
+                .WithMany(k => k.OfferedMeals)
                 .HasForeignKey(m => m.KitchenId);
 
             builder.HasOne(m => m.MealDetail)
-                .WithOne(md => md.Meal);
+                .WithOne(md => md.Meal)
+                .HasForeignKey<MealDetail>(md => md.MealId);
 
             builder.HasMany(m => m.MealReviews)
                 .WithOne(m => m.Meal)

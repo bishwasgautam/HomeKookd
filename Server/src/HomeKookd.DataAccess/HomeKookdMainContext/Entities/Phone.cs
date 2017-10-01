@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using HomeKookd.DataAccess.HomeKookdMainContext.Enums;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
-    public class Phone: IAuditable
+    [Table("Phones")]
+    public class Phone: IAuditable, IIdentifyable
     {
         public int Id { get; set; }
         public string CountryCode { get; set; }

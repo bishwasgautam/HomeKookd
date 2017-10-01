@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
-    public class Kitchen: IAuditable
+    [Table("Kitchens")]
+    public class Kitchen: IAuditable, IIdentifyable
     {
+
+        public Kitchen()
+        {
+            Meals = new HashSet<Meal>();
+        }
         public int Id { get; set; }
         public int Serves { get;set; }
         public string Description  { get; set; }
@@ -19,6 +26,6 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         public Kook Kook { get; set; }
         public int AddressId { get; set; }
         public Address Address { get; set; }
-        public IEnumerable<Meal> Meals { get; set; }
+        public ICollection<Meal> Meals { get; set; }
     }
 }

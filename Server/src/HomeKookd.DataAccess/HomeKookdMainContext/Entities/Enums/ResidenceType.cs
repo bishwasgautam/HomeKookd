@@ -1,6 +1,6 @@
 ﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Enums
 {
-    public enum AddressType
+    public enum ResidenceType
     {
         Home,
         Rental

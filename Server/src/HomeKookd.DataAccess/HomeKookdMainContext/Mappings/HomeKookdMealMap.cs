@@ -8,9 +8,13 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
     {
         public void Configure(EntityTypeBuilder<HomeKookdMeal> builder)
         {
-            builder.HasOne(hpd => hpd.HomeKookdMealSetting)
-                .WithOne(hkm => hkm.HomeKookdMeal);
+            builder.HasOne(hkms => hkms.HomeKookdMealSetting)
+                .WithOne(hkm => hkm.HomeKookdMeal)
+                .HasForeignKey<HomeKookdMealSetting>(hkms => hkms.HomeKookdMealId);
 
+            builder.HasOne(hpd => hpd.Meal)
+                .WithOne(hkm => hkm.HomeKookdMeal)
+                .HasForeignKey<HomeKookdMealSetting>(hkms => hkms.HomeKookdMealId);
         }
     }
 }

@@ -6,8 +6,17 @@ using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
-    public class Kook: IAuditable
+    [Table("Kooks")]
+    public class Kook: IAuditable, IIdentifyable
     {
+
+        public Kook()
+        {
+            HomeKookdMeals = new HashSet<HomeKookdMeal>();
+            Kitchen = new List<Kitchen>();
+            OfferedMeals = new HashSet<Meal>();
+            Testimonies = new HashSet<Testimony>();
+        }
         public int Id { get; set; }
         public User User { get; set; }
 
@@ -15,13 +24,13 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         public DateTime LastUpdatedDateTime { get; set; }
         public bool IsActive { get; set; }
 
-        public IEnumerable<HomeKookdMealSetting> HomeKookdMeals { get; set; }
+        public ICollection<HomeKookdMeal> HomeKookdMeals { get; set; }
 
-        public IEnumerable<Kitchen> Kitchen { get; set; }
+        public ICollection<Kitchen> Kitchen { get; set; }
 
-        public IEnumerable<Meal> Meals { get; set; }
+        public ICollection<Meal> OfferedMeals { get; set; }
 
-        public IEnumerable<Testimony> Testimonies { get; set; }
+        public ICollection<Testimony> Testimonies { get; set; }
 
 
         [NotMapped]

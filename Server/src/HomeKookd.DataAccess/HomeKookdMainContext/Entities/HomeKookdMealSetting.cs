@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using HomeKookd.DataAccess.HomeKookdMainContext.Enums;
 using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
-    public class HomeKookdMealSetting : IAuditable
+    [Table("HomeKookdMealSettings")]
+    public class HomeKookdMealSetting : IAuditable, IIdentifyable
     {
-
         public int Id { get; set; }
 
         public int  HeadCount { get; set; }
@@ -20,13 +19,10 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         public DateTime LastUpdatedDateTime { get; set; }
         public bool IsActive { get; set; }
 
-       
-
         //FKs
+        public int HomeKookdMealId { get; set; }
         public HomeKookdMeal HomeKookdMeal{ get; set; }
 
-        public int KookId { get; set; }
-        public Kook Kook { get; set; }
 
 
         [NotMapped]
@@ -40,34 +36,6 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         public bool IsAvailable => KookdSchedule.IsLive;
 
     }
-
-    public class KookdOrder : IAuditable
-    {
-        public int Id { get; set; }
-
-        public int OrderedByUserId { get; set; }
-        public User OrderedByUser { get; set; }
-
-        
-        public IEnumerable<HomeKookdMeal> HomeKookdMeals { get; set; }
-
-        public DateTime CreatedDateTime { get; set; }
-        public DateTime LastUpdatedDateTime { get; set; }
-        public bool IsActive { get; set; }
-    }
-
-    public class KookdRequest : IAuditable
-    {
-        public int Id { get; set; }
-
-        public int OrderedByUserId { get; set; }
-        public User OrderedByUser { get; set; }
-
-
-        public IEnumerable<HomeKookdMeal> HomeKookdMeals { get; set; }
-
-        public DateTime CreatedDateTime { get; set; }
-        public DateTime LastUpdatedDateTime { get; set; }
-        public bool IsActive { get; set; }
-    }
 }
+
+

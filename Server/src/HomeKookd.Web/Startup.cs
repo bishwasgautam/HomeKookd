@@ -31,7 +31,10 @@ namespace HomeKookd.API
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(
+                    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore //ignores any exception due to cyclic references in EF entities
+                );
 
             var homekookdmainCS = Configuration.GetConnectionString("HomeKookd.main");
             services.AddDbContext<HomeKookdMainDataContext>(options => options.UseSqlServer(homekookdmainCS));

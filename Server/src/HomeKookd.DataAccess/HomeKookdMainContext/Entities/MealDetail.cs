@@ -1,17 +1,23 @@
 ﻿using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
-    public class MealDetail : IAuditable
+    [Table("MealDetails")]
+    public class MealDetail : IAuditable, IIdentifyable
     {
+        public MealDetail()
+        {
+            Attributes = new HashSet<MealAttribute>();
+        }
         public int Id { get; set; }
 
         //Ingredients (Comma separated - eg: Olive oil, Flour, Chicken)
         public string Ingredients { get; set; }
         public int TotalCalories { get; set; }
-        public IEnumerable<MealAttribute> Attributes { get; set; } //has preservatives, cooked with alcohol, artificial coloring, fermented etc
+        public ICollection<MealAttribute> Attributes { get; set; } //has preservatives, cooked with alcohol, artificial coloring, fermented etc
 
 
         public DateTime CreatedDateTime { get; set; }

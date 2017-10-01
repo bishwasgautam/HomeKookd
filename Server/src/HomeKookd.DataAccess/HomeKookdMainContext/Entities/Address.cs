@@ -1,18 +1,26 @@
 ﻿using HomeKookd.DataAccess.HomeKookdMainContext.Enums;
 using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
-    public class Address : IAuditable 
+    [Table("Addresses")]
+    public class Address : IAuditable, IIdentifyable 
     {
+        public Address()
+        {
+             CreatedDateTime = DateTime.UtcNow;
+        }
         public int Id { get; set; }
         public string Street { get; set; }
         public string Apartment { get; set; }
         public string City { get; set; }
         public string Zip { get; set; }
         public string Country { get; set; }
-        public AddressType Type { get; set; }
+
+        public AddressType AddressType { get; set; }
+        public ResidenceType ResidenceType { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
         public DateTime LastUpdatedDateTime { get; set; }

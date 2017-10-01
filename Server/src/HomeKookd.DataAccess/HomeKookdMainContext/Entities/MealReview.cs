@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
+    [Table("MealReview")]
     public class MealReview
     {
         public int Id { get; set; }

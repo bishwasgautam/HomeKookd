@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using HomeKookd.DataAccess.HomeKookdMainContext.Enums;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
+    [Table("Meals")]
     public class Meal :IAuditable
     {
+        public Meal()
+        {
+            MealReviews = new HashSet<MealReview>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -16,7 +22,7 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         public double Price { get; set; }
         public MealType Type { get; set; }
         public MealDetail MealDetail { get; set; }
-        public IEnumerable<MealReview> MealReviews { get; set; }
+        public ICollection<MealReview> MealReviews { get; set; }
 
 
         //FKs
@@ -25,6 +31,10 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 
         public int KookId { get; set; }
         public Kook Kook { get; set; }
-        
+
+        public int HomeKookdMealId { get; set; }
+        public HomeKookdMeal HomeKookdMeal { get; set; }
+
+
     }
 }
