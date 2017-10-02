@@ -1,10 +1,11 @@
 ﻿using HomeKookd.DataAccess.HomeKookdMainContext.Entities;
+using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using HomeKookd.DataAccess.HomeKookdMainContext.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext
 {
-    public class HomeKookdMainDataContext : DbContext
+    public class HomeKookdMainDataContext : DbContext, IDataContext
     {
 
         public HomeKookdMainDataContext(DbContextOptions<HomeKookdMainDataContext> options) : base(options)
@@ -57,5 +58,21 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext
         public DbSet<CryptoCurrencyPaymentDetails> CryptoCurrencyPaymentDetails { get; set; }
         public DbSet<PaymentDetails> PaymentDetails { get; set; }
 
+        public void SetEntityState(IAuditable entity, EntityState modified)
+        {
+            this.Entry(entity).State = modified;
+        }
+
+        public EntityState GetEntityState(IAuditable entity)
+        {
+            return Entry(entity).State;
+        }
+
+        public DbSet<T> GetSet<T>() where T : class, IAuditable, IIdentifyable, new()
+        {
+            return Set<T>();
+        }
+
+        
     }
 }
