@@ -32,6 +32,6 @@ BCP %DBName%.dbo.Orders in %datDir%\Orders.dat -S %SqlServerName% -T -E -q -f %d
 BCP %DBName%.dbo.PaymentDetails in %datDir%\PaymentDetails.dat -S %SqlServerName% -T -E -q -f %datDir%\PaymentDetails.xml >> Log.txt
 
 
-@REM Cleaning up anything needed ..
-SQLCMD -S %SqlServerName% -d %DBName% -i CompleteDBImport.sql >> Log.txt
+@REM Finishing up ..
+
 
