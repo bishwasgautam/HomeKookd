@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Repositories\HomeKookd.Repositories.csproj" />
+    <ProjectReference Include="..\src\HomeKookd.DataAccess\HomeKookd.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

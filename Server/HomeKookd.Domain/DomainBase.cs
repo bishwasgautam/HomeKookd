@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentValidation.Results;
-using HomeKookd.Repositories.Interfaces;
+using HomeKookd.Domain.Interfaces;
+
 
 namespace HomeKookd.Domain
 {

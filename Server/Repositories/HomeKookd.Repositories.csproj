@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HomeKookd.Domain\HomeKookd.Domain.csproj" />
     <ProjectReference Include="..\src\HomeKookd.DataAccess\HomeKookd.DataAccess.csproj" />
   </ItemGroup>
 
