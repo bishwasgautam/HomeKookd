@@ -2,9 +2,9 @@
 {
     public enum PaymentMethod
     {
-        CCVisa,
-        CCMasterCard,
-        CCAmericanExpress,
+        Visa,
+        MasterCard,
+        AmericanExpress,
         Paypal,
         Bitcoin,
         Litecoin,

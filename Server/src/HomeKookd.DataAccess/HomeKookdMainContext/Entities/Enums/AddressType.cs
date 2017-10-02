@@ -2,8 +2,8 @@
 {
     public enum AddressType
     {
-        UserAddress,
-        Kook,
-        Billing
+        UserAddress = 1,
+        Kook = 2,
+        Billing = 3
     }
 }

@@ -19,10 +19,22 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
                 .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(u => u.Orders)
+                .WithOne(a => a.OrderedByUser)
+                .HasForeignKey(a => a.OrderedByUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(u => u.UpdatedOrders)
+                .WithOne(a => a.UpdatedByUser)
+                .HasForeignKey(a => a.UpdatedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasMany(p => p.Testimonies)
                 .WithOne(t => t.User)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull); //UserId will be set to null, rest of the record stays intact
+
+
         }
     }
 }

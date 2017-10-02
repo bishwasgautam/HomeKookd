@@ -14,6 +14,8 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new KookdCalendarMap());
             modelBuilder.ApplyConfiguration(new KitchenMap());
@@ -27,8 +29,9 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext
 
             modelBuilder.Entity<PaymentDetails>()
                 .ToTable("PaymentDetails")
-                .HasDiscriminator<PaymentMethod>("PaymentMethod");
-
+                .HasDiscriminator<string>("Discriminator")
+                .HasValue<CreditCardPaymentDetails>("CC")
+                .HasValue<CryptoCurrencyPaymentDetails>("Crypto");
 
         }
 

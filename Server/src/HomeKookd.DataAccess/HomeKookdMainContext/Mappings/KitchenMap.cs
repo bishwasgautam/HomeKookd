@@ -8,13 +8,17 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
     {
         public void Configure(EntityTypeBuilder<Kitchen> builder)
         {
+            builder.HasMany(k => k.Meals)
+                .WithOne(m => m.Kitchen)
+                .HasForeignKey(m => m.KitchenId);
+
             builder.HasOne(p => p.Address)
                 .WithOne(p => p.Kitchen)
                 .HasForeignKey<Address>(a => a.KitchenId);
 
-            builder.HasOne(p => p.Kook)
-                .WithMany(p => p.Kitchen)
-                .HasForeignKey(p => p.KookId);
+            //builder.HasOne(p => p.Kook)
+            //    .WithMany(p => p.Kitchen)
+            //    .HasForeignKey(p => p.KookId);
 
         }
     }

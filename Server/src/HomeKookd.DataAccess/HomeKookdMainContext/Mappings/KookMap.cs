@@ -18,6 +18,11 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
                 .HasForeignKey(p => p.KookId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(p => p.OfferedMeals)
+                .WithOne(p => p.Kook)
+                .HasForeignKey(p => p.KookId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasMany(p => p.Testimonies)
                 .WithOne(p => p.Kook)
                 .HasForeignKey(p => p.KookId)

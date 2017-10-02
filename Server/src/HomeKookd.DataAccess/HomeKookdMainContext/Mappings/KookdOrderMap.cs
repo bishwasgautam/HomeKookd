@@ -8,9 +8,9 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
     {
         public void Configure(EntityTypeBuilder<KookdOrder> builder)
         {
-            builder.HasOne(ko => ko.OrderedByUser)
-                .WithMany(u => u.Orders)
-                .HasForeignKey(ko => ko.OrderedByUser);
+            //builder.HasOne(ko => ko.OrderedByUser)
+            //    .WithMany(u => u.Orders)
+            //    .HasForeignKey(ko => ko.OrderedByUser);
 
             builder.HasOne(ko => ko.UpdatedByUser)
                 .WithMany(u => u.UpdatedOrders)

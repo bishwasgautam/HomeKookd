@@ -2,9 +2,9 @@
 {
     public enum MealType
     {
-        NonVeg, //meat
-        PisciTarian, //only fish
-        Vegetarian, //with eggs and dairy
-        Vegan //no eggs or dairy
+        NonVeg = 1, //meat
+        PisciTarian = 2, //only fish
+        Vegetarian = 3, //with eggs and dairy
+        Vegan = 4//no eggs or dairy
     }
 }

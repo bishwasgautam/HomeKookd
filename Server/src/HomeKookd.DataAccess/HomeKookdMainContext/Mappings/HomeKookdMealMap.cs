@@ -13,8 +13,8 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Mappings
                 .HasForeignKey<HomeKookdMealSetting>(hkms => hkms.HomeKookdMealId);
 
             builder.HasOne(hpd => hpd.Meal)
-                .WithOne(hkm => hkm.HomeKookdMeal)
-                .HasForeignKey<HomeKookdMealSetting>(hkms => hkms.HomeKookdMealId);
+                .WithOne(m => m.HomeKookdMeal)
+                .HasForeignKey<Meal>(m => m.HomeKookdMealId);
         }
     }
 }
