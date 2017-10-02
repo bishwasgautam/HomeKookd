@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using HomeKookd.DataAccess.HomeKookdMainContext.Entities.Enums;
 using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
-using HomeKookd.DataAccess.HomeKookdMainContext.Enums;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {

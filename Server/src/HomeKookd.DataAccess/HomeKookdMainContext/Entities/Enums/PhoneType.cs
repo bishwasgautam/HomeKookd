@@ -1,9 +1,9 @@
-﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Enums
+﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities.Enums
 {
     public enum PhoneType
     {
-        Home,
-        Business,
-        Cell
+        Home = 1,
+        Business = 2,
+        Cell = 3
     }
 }

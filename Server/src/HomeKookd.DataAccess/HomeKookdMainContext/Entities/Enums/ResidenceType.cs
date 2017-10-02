@@ -1,8 +1,8 @@
-﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Enums
+﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities.Enums
 {
     public enum ResidenceType
     {
-        Home,
-        Rental
+        Home = 1,
+        Rental = 2
     }
 }

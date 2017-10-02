@@ -1,4 +1,4 @@
-﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Enums
+﻿namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities.Enums
 {
     public enum DeliveryOption
     {
