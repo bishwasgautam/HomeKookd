@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext
 {
-    public class HomeKookdMainDataContext : DbContext, IDataContext
+    //contains only DbContext implementation
+    public partial class HomeKookdMainDataContext: DbContext
     {
 
         public HomeKookdMainDataContext(DbContextOptions<HomeKookdMainDataContext> options) : base(options)
@@ -57,7 +58,11 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext
         public DbSet<CreditCardPaymentDetails> CreditCardPaymentDetails { get; set; }
         public DbSet<CryptoCurrencyPaymentDetails> CryptoCurrencyPaymentDetails { get; set; }
         public DbSet<PaymentDetails> PaymentDetails { get; set; }
+    }
 
+    //contains only IDataContext implementation
+    public partial class HomeKookdMainDataContext :  IDataContext
+    {
         public void SetEntityState(IAuditable entity, EntityState modified)
         {
             this.Entry(entity).State = modified;
@@ -72,7 +77,5 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext
         {
             return Set<T>();
         }
-
-        
     }
 }
