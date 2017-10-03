@@ -7,7 +7,7 @@ using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
     [Table("Meals")]
-    public class Meal :IAuditable
+    public class Meal :IAuditable, IIdentifyable
     {
         public Meal()
         {

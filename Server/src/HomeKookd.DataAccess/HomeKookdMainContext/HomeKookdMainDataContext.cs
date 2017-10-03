@@ -63,17 +63,17 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext
     //contains only IDataContext implementation
     public partial class HomeKookdMainDataContext :  IDataContext
     {
-        public void SetEntityState(IAuditable entity, EntityState modified)
+        public void SetEntityState(IIdentifyable entity, EntityState modified)
         {
             this.Entry(entity).State = modified;
         }
 
-        public EntityState GetEntityState(IAuditable entity)
+        public EntityState GetEntityState(IIdentifyable entity)
         {
             return Entry(entity).State;
         }
 
-        public DbSet<T> GetSet<T>() where T : class, IAuditable, IIdentifyable, new()
+        public DbSet<T> GetSet<T>() where T : class, IIdentifyable, new()
         {
             return Set<T>();
         }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
     [Table("KookdSchedules")]
-    public class KookdSchedule
+    public class KookdSchedule : IIdentifyable
     {
         public int Id { get; set; }
 

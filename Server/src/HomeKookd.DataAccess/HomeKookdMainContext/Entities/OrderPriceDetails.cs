@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
     [Table("OrderPriceDetails")]
-    public class OrderPriceDetails
+    public class OrderPriceDetails : IIdentifyable
     {
         public int Id { get; set; }
         public decimal CalculatedTax { get; set; }

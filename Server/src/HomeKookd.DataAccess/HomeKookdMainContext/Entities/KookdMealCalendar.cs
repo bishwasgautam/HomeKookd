@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
     [Table("MealCalendars")]
-    public class KookdMealCalendar
+    public class KookdMealCalendar : IIdentifyable
     {
         public KookdMealCalendar()
         {

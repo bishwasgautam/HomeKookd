@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
     [Table("HomeKookdMeals")]
-    public class HomeKookdMeal
+    public class HomeKookdMeal : IIdentifyable
     {
         public int Id { get; set; }
         public DateTime KookdTime { get; set; }

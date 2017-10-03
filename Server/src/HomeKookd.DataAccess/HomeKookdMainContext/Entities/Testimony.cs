@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 
 namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
 {
     [Table("Testimonies")]
-    public class Testimony
+    public class Testimony : IIdentifyable
     {
         public int Id { get; set; }
         public int Rating { get; set; }

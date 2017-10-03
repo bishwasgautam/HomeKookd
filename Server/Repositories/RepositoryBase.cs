@@ -3,11 +3,12 @@ using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using HomeKookd.Domain.Interfaces;
 using HomeKookd.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Parsing;
 
 namespace HomeKookd.Repositories
 {
     public abstract class RepositoryBase<TDomainType, TDatabaseType> : IRepository<TDomainType>
-        where TDomainType : IDomainBase where TDatabaseType : class, IAuditable, IIdentifyable, new()
+        where TDomainType : class,IDomainBase where TDatabaseType : class, IIdentifyable, new()
     {
         private IDataContext _dataContext;
         private IConverter<TDomainType, TDatabaseType> _converter;
@@ -18,8 +19,14 @@ namespace HomeKookd.Repositories
             this._converter = converter ?? throw new ArgumentNullException(nameof(converter));
         }
 
-        public abstract TDomainType FindBy(int id, bool fromCache = true);
+        public abstract TDomainType FindBy(int id);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="domainObj"></param>
+        /// <param name="modifiedBy"></param>
+        /// <param name="modifiedDate"></param>
         public void Add(TDomainType domainObj, int? modifiedBy = null, DateTime? modifiedDate = null)
         {
             TDatabaseType entity = RetrieveDatabaseTypeFrom(domainObj, modifiedBy, modifiedDate);
@@ -77,13 +84,5 @@ namespace HomeKookd.Repositories
             return _dataContext.GetSet<TDatabaseType>();
         }
     }
-
-    public interface IConverter<TDomainType, TDatabaseType> where TDomainType : IDomainBase
-        where TDatabaseType : IIdentifyable, IAuditable, new()
-    {
-        TDatabaseType ConvertToDatabaseType(IDomainBase domainType, int? modifiedBy, DateTime? modifiedDate);
-        TDomainType ConvertToDomainType(TDatabaseType databaseType);
-    }
-
-    
 }
+
