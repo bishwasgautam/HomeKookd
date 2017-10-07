@@ -13,11 +13,12 @@ namespace HomeKookd.Repositories
     {
         private readonly IConverter<UserDo, User> _converter;
         public HomeKookdMainDataContext DataContext { get; set; }
-        public UserRepository(IDataContext dataContext, IConverter<UserDo, User> converter) : base(dataContext, converter)
+
+        public UserRepository(HomeKookdMainDataContext dataContext, IConverter<UserDo, User> converter) : base(dataContext,
+            converter)
         {
             _converter = converter;
-            DataContext = (dataContext is HomeKookdMainDataContext)? (HomeKookdMainDataContext) dataContext 
-                : throw new ArgumentException("Expected HomeKookdMainDataContext got something else..:(");
+            DataContext =  dataContext;
         }
 
         public override UserDo FindBy(int id)
@@ -27,9 +28,10 @@ namespace HomeKookd.Repositories
             return _converter.ConvertToDomainType(userEntity);
         }
 
-        public  UserDo FindBy(string email)
+        public UserDo FindBy(string email)
         {
-            var userEntity = DataContext.Set<User>().FirstOrDefault(u => u.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase));
+            var userEntity = DataContext.Set<User>()
+                .FirstOrDefault(u => u.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase));
 
             return _converter.ConvertToDomainType(userEntity);
         }
@@ -40,12 +42,26 @@ namespace HomeKookd.Repositories
                 phone.CountryCode, phone.AreaCode, phone.PhoneNumber, phone.Extension);
         }
 
-        public UserDo GetWithMatchingGiven((string firstName, string lastName, string city, DateTime birthday) userInfoTuple)
+        public UserDo FindByMatchingGiven(string firstName, string lastName, string city, DateTime? birthday)
         {
-            throw new NotImplementedException();
+            var matchingRecords = DataContext.Set<User>().Include(x => x.Addresses).Where(x =>
+                x.FirstName.Equals(firstName, StringComparison.CurrentCultureIgnoreCase));
+
+            var results = !string.IsNullOrEmpty(city) && matchingRecords.Count() > 1
+                ? matchingRecords.Where(x =>
+                    x.GetActiveAddress().City.Equals(city, StringComparison.CurrentCultureIgnoreCase)) : matchingRecords;
+
+            var userEntity = birthday.HasValue && results.Count() > 1
+                ? results.FirstOrDefault(x => x.BirthDate.Equals(birthday))
+                : results.FirstOrDefault();
+
+            return _converter.ConvertToDomainType(userEntity);
         }
 
-        private UserDo GetWithMatchingGivenPhoneInfo(string countryCode, string areaCode, string phoneNumber, string extension)
+
+
+        public UserDo GetWithMatchingGivenPhoneInfo(string countryCode, string areaCode, string phoneNumber,
+            string extension)
         {
             var userEntity = DataContext.Set<User>().Include(u => u.Phones)
                 .FirstOrDefault(u => u.Phones.Any(p => p.GetFullNumber("{0:##########}")
@@ -53,11 +69,5 @@ namespace HomeKookd.Repositories
 
             return _converter.ConvertToDomainType(userEntity);
         }
-
-        public interface IUserRepository
-    {
-        UserDo FindBy(string email);
-        UserDo FindBy(PhoneDo phone);
-        UserDo FindByMatchingGiven((string firstName, string lastName, string city, DateTime birthday) userInfoTuple);
     }
 }

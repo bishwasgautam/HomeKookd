@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
@@ -13,6 +14,8 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         {
             HomeKookdMeals = new HashSet<HomeKookdMeal>();
         }
+
+        [Key]
         public int Id { get; set; }
         public ICollection<HomeKookdMeal> HomeKookdMeals { get; set; }
 
