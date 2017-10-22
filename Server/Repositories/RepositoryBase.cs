@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using HomeKookd.Domain.Interfaces;
 using HomeKookd.Repositories.Interfaces;
@@ -7,16 +10,32 @@ using Remotion.Linq.Parsing;
 
 namespace HomeKookd.Repositories
 {
-    public abstract class RepositoryBase<TDomainType, TDatabaseType> : IRepository<TDomainType>
-        where TDomainType : class,IDomainBase where TDatabaseType : class, IIdentifyable, new()
+    public abstract class RepositoryBase<TDomainType, TDatabaseType> : IRepository<TDomainType, TDatabaseType>
+        where TDomainType : class, IDomainBase where TDatabaseType : class, IIdentifyable, new()
     {
         private IDataContext _dataContext;
         private IConverter<TDomainType, TDatabaseType> _converter;
 
         protected RepositoryBase(IDataContext dataContext, IConverter<TDomainType, TDatabaseType> converter)
         {
-            this._dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
-            this._converter = converter ?? throw new ArgumentNullException(nameof(converter));
+            _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
+            _converter = converter ?? throw new ArgumentNullException(nameof(converter));
+        }
+
+        public IQueryable<TDatabaseType> Select()
+        {
+            return _dataContext.GetSet<TDatabaseType>();
+        }
+
+        public IEnumerable<TDomainType> SelectWith(params Expression<Func<TDatabaseType, object>>[] includeProperties)
+        {
+            IQueryable<TDatabaseType> query = Select();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return query.Select(_converter.ConvertToDomainType).AsQueryable();
         }
 
         public abstract TDomainType FindBy(int id);

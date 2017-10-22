@@ -7,22 +7,31 @@ namespace HomeKookd.Domain
     {
         public KookDo(int id) : base(id)
         {
-            this.Id = id;
-            HomeKookdMeals = new List<HomeKookdMeal>();
-            Kitchen = new List<Kitchen>();
-            OfferedMeals = new List<Meal>();
-            Testimonies = new List<Testimony>();
+            HomeKookdMeals = new List<HomeKookdMealDo>();
+            Kitchen = new List<KitchenDO>();
+            SetOfferedMeals(new List<MealDO>());
+            Testimonies = new List<TestimonyDo>();
         }
 
-        public int Id { get; set; }
+      
         public User User { get; set; }
 
-        public List<HomeKookdMeal> HomeKookdMeals { get; set; }
+        public List<HomeKookdMealDo> HomeKookdMeals { get; set; }
 
-        public List<Kitchen> Kitchen { get; set; }
+        public List<KitchenDO> Kitchen { get; set; }
 
-        public List<Meal> OfferedMeals { get; set; }
+        private List<MealDO> offeredMeals;
 
-        public List<Testimony> Testimonies { get; set; }
+        public List<MealDO> GetOfferedMeals()
+        {
+            return offeredMeals;
+        }
+
+        public void SetOfferedMeals(List<MealDO> value)
+        {
+            offeredMeals = value;
+        }
+
+        public List<TestimonyDo> Testimonies { get; set; }
     }
 }

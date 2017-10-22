@@ -5,14 +5,17 @@ using HomeKookd.Domain.Interfaces;
 
 namespace HomeKookd.Domain
 {
-    public class UserDo : IDomainBase
+    public class UserDo : DomainBase
     {
         public int Id { get; set; }
         public ValidationResult ValidationResult { get; set; }
 
-        public UserDo(int id)
+        public UserDo(int id) : base(id)
+        {}
+
+        public UserDo():base(0)
         {
-            Id = id > 0? id: throw new ArgumentOutOfRangeException(nameof(id));
+            
         }
 
         public string FirstName { get; set; }

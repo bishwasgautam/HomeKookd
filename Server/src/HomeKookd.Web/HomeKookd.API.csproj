@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="AutoAutoMapper" Version="0.2.0" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
@@ -19,6 +21,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="NLog" Version="4.4.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="1.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Repositories\HomeKookd.Repositories.csproj" />
     <ProjectReference Include="..\HomeKookd.DataAccess\HomeKookd.DataAccess.csproj" />
+    <ProjectReference Include="..\HomeKookd.DependencyResolution\HomeKookd.DependencyResolution.csproj" />
+    <ProjectReference Include="..\HomeKookd.Services\HomeKookd.Services.csproj" />
   </ItemGroup>
 
 </Project>

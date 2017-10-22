@@ -1,5 +1,4 @@
 ﻿using System;
-using HomeKookd.DataAccess.HomeKookdMainContext.Entities;
 using HomeKookd.Domain;
 
 namespace HomeKookd.Repositories
@@ -9,11 +8,9 @@ namespace HomeKookd.Repositories
         UserDo FindBy(string email);
         UserDo FindBy(PhoneDo phone);
         UserDo FindByMatchingGiven(string firstName, string lastName, string city, DateTime? birthday);
-    }
 
-    public interface KookRepository
-    {
-        KookdDo FindBy(string FirstName);
+        int GetTestimoniesLeftByUser(int id);
 
+        void Add(UserDo userDo);
     }
 }

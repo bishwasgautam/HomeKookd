@@ -2,7 +2,6 @@
 using System.Linq;
 using HomeKookd.DataAccess.HomeKookdMainContext;
 using HomeKookd.DataAccess.HomeKookdMainContext.Entities;
-using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using HomeKookd.Domain;
 using HomeKookd.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +57,20 @@ namespace HomeKookd.Repositories
             return _converter.ConvertToDomainType(userEntity);
         }
 
+        public int GetTestimoniesLeftByUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(UserDo userDo)
+        {
+            if (userDo.Id == 0)
+            {
+                var userEntity = _converter.ConvertToDatabaseType(userDo, null, null);
+                DataContext.Set<User>().Add(userEntity);
+            }
+
+        }
 
 
         public UserDo GetWithMatchingGivenPhoneInfo(string countryCode, string areaCode, string phoneNumber,

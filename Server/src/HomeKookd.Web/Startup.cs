@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using HomeKookd.DataAccess;
 using HomeKookd.DataAccess.HomeKookdMainContext;
+using HomeKookd.DependencyResolution;
+using Swashbuckle.AspNetCore.Swagger;
+//using Swashbuckle.AspNetCore.SwaggerUI;
+
 
 namespace HomeKookd.API
 {
@@ -23,12 +25,14 @@ namespace HomeKookd.API
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            AutoMapperConfig.RegisterProfiles();
         }
 
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddMvc()
@@ -36,8 +40,23 @@ namespace HomeKookd.API
                     options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore //ignores any exception due to cyclic references in EF entities
                 );
 
-            var homekookdmainCS = Configuration.GetConnectionString("HomeKookd.main");
-            services.AddDbContext<HomeKookdMainDataContext>(options => options.UseSqlServer(homekookdmainCS));
+            var mainDbConnectionString = Configuration.GetConnectionString("HomeKookd.main");
+            services.AddDbContext<HomeKookdMainDataContext>(options => options.UseSqlServer(mainDbConnectionString));
+
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.OperationFilter<AddRequiredHeaderParameter>();
+            //    c.SchemaFilter<AddSchemaExamples>();
+            //    c.DescribeAllEnumsAsStrings();
+            //    c.SwaggerDoc("v1", new Info { Title = "Eoi Hub API", Version = "v1" });
+            //});
+
+            var builder = new ContainerBuilder();
+            builder.AddServices(services);
+
+            DependencyResolver.SetContainer(builder.BuildDependencies());
+
+            return new AutofacServiceProvider(DependencyResolver.ApplicationContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +64,12 @@ namespace HomeKookd.API
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "HomeKookd API");
+            });
 
             app.UseMvc();
         }
