@@ -1,9 +1,10 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeKookd.DataAccess
 {
-    public interface IUnitOfWork<T> where T: DbContext
+    public interface IUnitOfWork : IDisposable
     {
         bool IsInTransaction { get; }
         void BeginTransaction();

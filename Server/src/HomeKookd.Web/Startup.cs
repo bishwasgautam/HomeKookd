@@ -1,6 +1,7 @@
 ﻿using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using HomeKookd.API.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,8 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using HomeKookd.DataAccess.HomeKookdMainContext;
 using HomeKookd.DependencyResolution;
-using Swashbuckle.AspNetCore.Swagger;
-//using Swashbuckle.AspNetCore.SwaggerUI;
 
 
 namespace HomeKookd.API
@@ -35,7 +34,7 @@ namespace HomeKookd.API
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc()
+            services.AddMvc(mvc => mvc.Filters.AddService(typeof(UnitOfWorkFilterAttribute)))
                 .AddJsonOptions(
                     options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore //ignores any exception due to cyclic references in EF entities
                 );

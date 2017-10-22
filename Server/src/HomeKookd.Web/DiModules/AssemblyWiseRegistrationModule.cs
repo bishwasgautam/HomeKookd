@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
+using HomeKookd.DataAccess;
 using HomeKookd.Infrastructure.Authentication;
 using HomeKookd.Repositories;
 using HomeKookd.Services;
@@ -11,6 +12,11 @@ namespace HomeKookd.API.DiModules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            //Data Access
+            builder.RegisterAssemblyTypes(typeof(UnitOfWork<>).GetTypeInfo().Assembly)
+                .Where(t => t.Name.EndsWith("UnitOfWork"))
+                .AsImplementedInterfaces().InstancePerRequest();
+          
             // Repositories
             builder.RegisterAssemblyTypes(typeof(UserRepository).GetTypeInfo().Assembly)
                 .Where(t => t.Name.EndsWith("Repository") || t.Name.EndsWith("Converter"))

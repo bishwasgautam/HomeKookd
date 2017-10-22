@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace HomeKookd.DataAccess
 {
-    public abstract class UnitOfWork<T>: IUnitOfWork<T>, IDisposable where T: DbContext
+    public abstract class UnitOfWork<T>: IUnitOfWork where T: DbContext
     {
         private IDbContextTransaction _transaction;
         private readonly T _dbContext;
