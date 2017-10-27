@@ -13,6 +13,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using HomeKookd.DataAccess.HomeKookdMainContext;
 using HomeKookd.DependencyResolution;
+using NLog;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 
 namespace HomeKookd.API
@@ -70,6 +73,15 @@ namespace HomeKookd.API
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddNLog();
+
+            app.AddNLogWeb();
+
+            LogManager.Configuration.Variables["connectionString"] =
+                Configuration.GetConnectionString("HomeKookd.Logging");
+
+            LogManager.Configuration.Variables["configDir"] = Configuration["Logging:LogFilePath"];
+            
 
             //app.UseSwagger();
             //app.UseSwaggerUI(c =>
