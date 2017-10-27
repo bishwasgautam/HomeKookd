@@ -2,6 +2,7 @@
 using System.Linq;
 using HomeKookd.DataAccess.HomeKookdMainContext;
 using HomeKookd.DataAccess.HomeKookdMainContext.Entities;
+using HomeKookd.DataAccess.HomeKookdMainContext.Entities.Enums;
 using HomeKookd.Domain;
 using HomeKookd.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -69,7 +70,19 @@ namespace HomeKookd.Repositories
                 var userEntity = _converter.ConvertToDatabaseType(userDo, null, null);
                 DataContext.Set<User>().Add(userEntity);
             }
+        }
 
+        public UserDo FindByEmail(string email)
+        {
+            return ConvertToDomainType(Select().FirstOrDefault(x => string.Equals(x.Email, email)));
+        }
+
+        //find first active user whose email or cell phone matches userName
+        public UserDo FindByUsername(string userName)
+        {
+            return ConvertToDomainType(SelectWith(y => y.Phones).FirstOrDefault(x => x.IsActive &&
+                string.Equals(x.Email, userName, StringComparison.CurrentCultureIgnoreCase) ||
+                string.Equals(x.Phones.FirstOrDefault(p => p.Type == PhoneType.Cell && p.IsActive)?.GetFullNumber(), userName)));
         }
 
 

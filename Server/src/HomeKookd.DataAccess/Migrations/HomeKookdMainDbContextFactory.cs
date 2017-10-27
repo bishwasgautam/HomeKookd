@@ -21,4 +21,7 @@ namespace HomeKookd.DataAccess.Migrations
             return new HomeKookdMainDataContext(builder.Options);
         }
     }
+
+   
+
 }

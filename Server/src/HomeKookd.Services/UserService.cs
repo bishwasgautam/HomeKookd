@@ -1,8 +1,10 @@
-﻿using FluentValidation.Results;
+﻿using System;
+using FluentValidation.Results;
 using HomeKookd.Domain;
 using HomeKookd.Repositories;
 using HomeKookd.Services.DTOs;
 using HomeKookd.Services.Interfaces;
+using HomeKookd.Resources;
 
 namespace HomeKookd.Services
 {
@@ -17,11 +19,9 @@ namespace HomeKookd.Services
 
         public void AddNewUser(UserDto userDto)
         {
-            Validate(userDto);
-
             if (userDto.IsValid) {
                 
-                var userDO = new UserDo()
+                var userDo = new UserDo()
                 {
                     FirstName = userDto.FirstName,
                     LastName = userDto.LastName,
@@ -30,17 +30,30 @@ namespace HomeKookd.Services
                     Sex = userDto.Sex,
                     Type = userDto.UserType,
                     BirthDate = userDto.BirthDate,
-                    Image = userDto.ImagerUrl
+                    Image = userDto.ImageUrl
                 };
 
-                _userRepository.Add(userDO);
+                _userRepository.Add(userDo);
             }
+
         }
 
-        private void Validate(UserDto userDto)
+        public void Validate(UserDto userDto)
         {
-            //example
-            userDto.ValidationResult.Errors.Add(new ValidationFailure("Test", "safasddas asfdasf sadfasdf")); 
+            var user = _userRepository.FindByEmail(userDto.Email);
+            if (user != null)
+                userDto.ValidationResult.Errors.Add(new ValidationFailure(ValidationResource.FieldName.Email, ValidationResource.ErrorMessage.DuplicateEmail));
+           
+            var user1 = GetUserInfo(Convert.ToInt16(userDto.PhoneNumber));
+            if(user1 != null)
+                userDto.ValidationResult.Errors.Add(new ValidationFailure(ValidationResource.FieldName.PhoneNumber, ValidationResource.ErrorMessage.DuplicatePhoneNumber)); 
+        }
+
+        public bool IsUserActive(LoginDto dto)
+        {
+            var user = _userRepository.FindByUsername(dto.UserName);
+
+            return user != null;
         }
 
         public UserDto GetUserInfo(int phoneNumber)
@@ -55,7 +68,7 @@ namespace HomeKookd.Services
                Email = user.Email,
                Sex = user.Sex,
                BirthDate = user.BirthDate,
-               ImagerUrl = user.Image,
+               ImageUrl = user.Image,
                UserType = user.Type
            };
         }
@@ -68,5 +81,7 @@ namespace HomeKookd.Services
 
             return result;
         }
+
+
     }
 }

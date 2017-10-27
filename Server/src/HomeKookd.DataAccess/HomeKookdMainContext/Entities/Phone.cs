@@ -37,15 +37,11 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         public int UserId { get; set; }
         public User User { get; set; }
 
-        public string GetFullNumber()
-        {
-            return $"{CountryCode}{AreaCode}{PhoneNumber}";
-        }
+        public string GetFullNumber() => $"{CountryCode}{AreaCode}{PhoneNumber}";
+        
 
-        public string GetFullNumber(string format)
-        {
-            return string.Format(format, CountryCode, AreaCode, PhoneNumber);
-        }
+        public string GetFullNumber(string format) => string.Format(format, CountryCode, AreaCode, PhoneNumber);
+        
 
 
     }

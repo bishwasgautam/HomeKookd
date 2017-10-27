@@ -12,5 +12,7 @@ namespace HomeKookd.Repositories
         int GetTestimoniesLeftByUser(int id);
 
         void Add(UserDo userDo);
+        UserDo FindByEmail(string email);
+        UserDo FindByUsername(string userName);
     }
 }

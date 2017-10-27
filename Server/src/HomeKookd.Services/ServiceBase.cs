@@ -14,6 +14,11 @@ namespace HomeKookd.Services
             ValidationResult = new ValidationResult();
         }
 
+        protected ServiceBase()
+        {
+            ValidationResult = new ValidationResult();
+        }
+
         public ValidationResult ValidationResult { get; set; }
 
         public bool IsValid => ValidationResult.IsValid;

@@ -9,8 +9,7 @@ namespace HomeKookd.Domain
         public string AreaCode { get; set; }
         public string PhoneNumber { get; set; }
         public string Extension { get; set; }
-
-        
+        public bool IsActive { get; set; }
 
         public (string, string, string, string) FormParts(string pNumber)
         {

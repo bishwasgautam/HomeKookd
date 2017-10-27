@@ -6,7 +6,6 @@ using HomeKookd.DataAccess.HomeKookdMainContext.Interfaces;
 using HomeKookd.Domain.Interfaces;
 using HomeKookd.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Parsing;
 
 namespace HomeKookd.Repositories
 {
@@ -27,7 +26,7 @@ namespace HomeKookd.Repositories
             return _dataContext.GetSet<TDatabaseType>();
         }
 
-        public IEnumerable<TDomainType> SelectWith(params Expression<Func<TDatabaseType, object>>[] includeProperties)
+        public IQueryable<TDatabaseType> SelectWith(params Expression<Func<TDatabaseType, object>>[] includeProperties)
         {
             IQueryable<TDatabaseType> query = Select();
             foreach (var includeProperty in includeProperties)
@@ -35,7 +34,7 @@ namespace HomeKookd.Repositories
                 query = query.Include(includeProperty);
             }
 
-            return query.Select(_converter.ConvertToDomainType).AsQueryable();
+            return query;
         }
 
         public abstract TDomainType FindBy(int id);

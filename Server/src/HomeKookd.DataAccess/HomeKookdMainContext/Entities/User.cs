@@ -31,6 +31,8 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         public string LastName { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -57,6 +59,8 @@ namespace HomeKookd.DataAccess.HomeKookdMainContext.Entities
         [Required]
         public UserType Type { get; set; }
 
+     
+        [Url]
         [Required]
         public string Image { get; set; }
         public ICollection<Testimony> Testimonies { get; set; }//written for others by this user
