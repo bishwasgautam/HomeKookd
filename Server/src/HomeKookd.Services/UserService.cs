@@ -44,7 +44,7 @@ namespace HomeKookd.Services
             if (user != null)
                 userDto.ValidationResult.Errors.Add(new ValidationFailure(ValidationResource.FieldName.Email, ValidationResource.ErrorMessage.DuplicateEmail));
            
-            var user1 = GetUserInfo(Convert.ToInt16(userDto.PhoneNumber));
+            var user1 = GetUserInfo(Convert.ToInt64(userDto.PhoneNumber));
             if(user1 != null)
                 userDto.ValidationResult.Errors.Add(new ValidationFailure(ValidationResource.FieldName.PhoneNumber, ValidationResource.ErrorMessage.DuplicatePhoneNumber)); 
         }
@@ -56,10 +56,10 @@ namespace HomeKookd.Services
             return user != null;
         }
 
-        public UserDto GetUserInfo(int phoneNumber)
+        public UserDto GetUserInfo(long phoneNumber)
         {
             var user = _userRepository.FindBy(GetPhoneDoFromNumber(phoneNumber));
-           return new UserDto()
+           return user == null? null : new UserDto()
            {
                Id = user.Id,
                FirstName = user.FirstName,
@@ -73,7 +73,7 @@ namespace HomeKookd.Services
            };
         }
 
-        private PhoneDo GetPhoneDoFromNumber(int phoneNumber)
+        private PhoneDo GetPhoneDoFromNumber(long phoneNumber)
         {
             var result = new PhoneDo();
 

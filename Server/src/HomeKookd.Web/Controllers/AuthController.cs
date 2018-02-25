@@ -7,14 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using HomeKookd.API.Filters;
 using HomeKookd.DataAccess.HomeKookdAppIdentityContext.Entities;
-using HomeKookd.Services;
+using HomeKookd.DataAccess.HomeKookdMainContext.Entities.Enums;
+using HomeKookd.Infrastructure.Logging;
 using HomeKookd.Services.DTOs;
 using HomeKookd.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+
 using Microsoft.IdentityModel.Tokens;
 
 namespace HomeKookd.API.Controllers
@@ -24,15 +25,15 @@ namespace HomeKookd.API.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
-        private readonly IConfigurationRoot _configurationRoot;
+        private readonly IConfiguration _configuration;
         private readonly ILogger<AuthController> _logger;
         private readonly IHostingEnvironment _env;
 
-        public AuthController(IAuthService authService, IUserService userService, IConfigurationRoot configurationRoot, ILogger<AuthController> logger, IHostingEnvironment env)
+        public AuthController(IAuthService authService, IUserService userService, IConfiguration configuration, ILogger<AuthController> logger, IHostingEnvironment env)
         {
             _authService = authService;
             _userService = userService;
-            _configurationRoot = configurationRoot;
+            _configuration = configuration;
             _logger = logger;
             _env = env;
         }
@@ -52,9 +53,11 @@ namespace HomeKookd.API.Controllers
                   LastName = "Gautam",
                   BirthDate = new DateTime(1988, 7, 26, 11,15,45),
                   Email = "bishwasgautam05@gmail.com",
-                  Password = "TestPass123",
+                  Sex = "Male",
+                  UserType = UserType.AppAdmin,
+                  Password = "TestPass123!",
                   PhoneNumber = "12244502609",
-                  UserName = "bishwasgautam05@gmal.com",
+                  UserName = "bishwasgautam05@gmail.com",
                   ImageUrl = "https://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/A-G/chimpanzee-with-baby.ngsversion.1412621761167.adapt.1900.1.jpg"
               };
             }
@@ -67,7 +70,6 @@ namespace HomeKookd.API.Controllers
 
                 if (dto.IsValid)
                 {
-                    _userService.AddNewUser(dto);
 
                     var user = new AppUser()
                     {
@@ -79,6 +81,8 @@ namespace HomeKookd.API.Controllers
 
                     if (createUserResult.Succeeded)
                     {
+                        _userService.AddNewUser(dto);
+
                         result = Ok(createUserResult);
                     }
                     else
@@ -99,6 +103,7 @@ namespace HomeKookd.API.Controllers
             return result;
         }
 
+        [AllowAnonymous]
         [ValidateForm]
         [HttpPost("CreateToken")]
         [Route("token")]
@@ -125,17 +130,18 @@ namespace HomeKookd.API.Controllers
 
                             var symmetricSecurityKey =
                                 new SymmetricSecurityKey(
-                                    Encoding.UTF8.GetBytes(_configurationRoot["JwtSecurityToken:Key"]));
+                                    Encoding.ASCII.GetBytes(_configuration["JwtSecurityToken:SecurityKey"]));
                             var signingCredentials =
                                 new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
                             var jwtSecurityToken = new JwtSecurityToken(
-                                issuer: _configurationRoot["JwtSecurityToken:Issuer"],
-                                audience: _configurationRoot["JwtSecurityToken:Audience"],
+                                issuer: _configuration["JwtAuthToken:Issuer"],
+                                audience: _configuration["JwtAuthToken:Audience"],
                                 claims: claims,
                                 expires: DateTime.UtcNow.AddMinutes(60),
                                 signingCredentials: signingCredentials
                             );
+                            
 
                             result = Ok(new
                             {
@@ -149,7 +155,7 @@ namespace HomeKookd.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"error while creating token: {ex}");
+                _logger.Error($"error while creating token: {ex}");
                 result = StatusCode((int)HttpStatusCode.InternalServerError, "error while creating token");
             }
 

@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Threading.Tasks;
 using HomeKookd.DataAccess.HomeKookdAppIdentityContext;
 using HomeKookd.DataAccess.HomeKookdAppIdentityContext.Entities;
 using HomeKookd.DataAccess.HomeKookdMainContext;
@@ -22,20 +25,42 @@ namespace HomeKookd.API.Identity
                 .AddEntityFrameworkStores<AppIdentityContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddCors(config => {
+                config.AddPolicy("AllowAllOrigins",
+                    builder => builder.AllowCredentials().AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()); 
+            });
 
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+                    .RequireAuthenticatedUser().Build());
+            });
+
+            // ===== Add Jwt Authentication ========
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.TokenValidationParameters.ValidIssuer = Configuration["JwtAuthToken:Issuer"];
-                    options.TokenValidationParameters.ValidAudience = Configuration["JwtAuthToken:Audience"];
-                    options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtSecurityToken:Key"]));
-                    options.TokenValidationParameters.ValidateIssuerSigningKey = true;
-                    options.TokenValidationParameters.ValidateLifetime = true;
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = Configuration["JwtAuthToken:Issuer"],
+                        ValidateIssuer = true,
+                        ValidAudience = Configuration["JwtAuthToken:Audience"],
+                        ValidateAudience = true,
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(
+                                Encoding.ASCII.GetBytes(Configuration["JwtAuthToken:SecurityKey"])),
+                        ValidateIssuerSigningKey = false,
+                        ValidateLifetime = true,
+                        RequireExpirationTime = true,
+                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                    };
+
                 });
 
-            services.AddAuthorization(options =>
-                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build());
         }
     }
 }

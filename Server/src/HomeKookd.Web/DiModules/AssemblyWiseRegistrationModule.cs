@@ -15,7 +15,7 @@ namespace HomeKookd.API.DiModules
             //Data Access
             builder.RegisterAssemblyTypes(typeof(UnitOfWork<>).GetTypeInfo().Assembly)
                 .Where(t => t.Name.EndsWith("UnitOfWork"))
-                .AsImplementedInterfaces().InstancePerRequest();
+                .AsImplementedInterfaces().AsSelf().InstancePerLifetimeScope();
           
             // Repositories
             builder.RegisterAssemblyTypes(typeof(UserRepository).GetTypeInfo().Assembly)
@@ -30,7 +30,7 @@ namespace HomeKookd.API.DiModules
             // Infrastructure
             builder.RegisterAssemblyTypes(typeof(AuthenticationContext).GetTypeInfo().Assembly)
                 .Where(t => t.Name.EndsWith("Context"))
-                .AsImplementedInterfaces().InstancePerRequest();
+                .AsImplementedInterfaces().InstancePerLifetimeScope();
         }
     }
 }

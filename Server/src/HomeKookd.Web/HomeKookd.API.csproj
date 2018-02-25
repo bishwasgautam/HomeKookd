@@ -20,6 +20,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Repositories\HomeKookd.Repositories.csproj" />
     <ProjectReference Include="..\..\Resources\HomeKookd.Resources.csproj" />
+    <ProjectReference Include="..\HomeKookd.Common\HomeKookd.Common.csproj" />
     <ProjectReference Include="..\HomeKookd.DataAccess\HomeKookd.DataAccess.csproj" />
     <ProjectReference Include="..\HomeKookd.DependencyResolution\HomeKookd.DependencyResolution.csproj" />
     <ProjectReference Include="..\HomeKookd.Services\HomeKookd.Services.csproj" />

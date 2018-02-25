@@ -4,6 +4,7 @@ using HomeKookd.DataAccess.HomeKookdMainContext;
 using HomeKookd.DataAccess.HomeKookdMainContext.Entities;
 using HomeKookd.DataAccess.HomeKookdMainContext.Entities.Enums;
 using HomeKookd.Domain;
+using HomeKookd.Infrastructure.Authentication;
 using HomeKookd.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,12 +13,14 @@ namespace HomeKookd.Repositories
     public class UserRepository : RepositoryBase<UserDo, User>, IUserRepository
     {
         private readonly IConverter<UserDo, User> _converter;
+        private readonly IAuthenticationContext _authContext;
         public HomeKookdMainDataContext DataContext { get; set; }
 
-        public UserRepository(HomeKookdMainDataContext dataContext, IConverter<UserDo, User> converter) : base(dataContext,
+        public UserRepository(HomeKookdMainDataContext dataContext, IConverter<UserDo, User> converter, IAuthenticationContext authContext) : base(dataContext,
             converter)
         {
             _converter = converter;
+            _authContext = authContext;
             DataContext =  dataContext;
         }
 
@@ -67,8 +70,7 @@ namespace HomeKookd.Repositories
         {
             if (userDo.Id == 0)
             {
-                var userEntity = _converter.ConvertToDatabaseType(userDo, null, null);
-                DataContext.Set<User>().Add(userEntity);
+                Add(userDo, _authContext.UserId);
             }
         }
 
@@ -80,9 +82,18 @@ namespace HomeKookd.Repositories
         //find first active user whose email or cell phone matches userName
         public UserDo FindByUsername(string userName)
         {
-            return ConvertToDomainType(SelectWith(y => y.Phones).FirstOrDefault(x => x.IsActive &&
-                string.Equals(x.Email, userName, StringComparison.CurrentCultureIgnoreCase) ||
-                string.Equals(x.Phones.FirstOrDefault(p => p.Type == PhoneType.Cell && p.IsActive)?.GetFullNumber(), userName)));
+            var result = SelectWith(y => y.Phones).FirstOrDefault(x => x.IsActive && string.Equals(x.Email, userName,
+                                                                           StringComparison.CurrentCultureIgnoreCase) ||  
+                                                                       string.Equals(GetActiveCellPhoneNumber(x),  userName));
+            return ConvertToDomainType(result);
+        }
+
+        private string GetActiveCellPhoneNumber(User u)
+        {
+            var phone = u.Phones.FirstOrDefault(p =>
+                p.Type == PhoneType.Cell && p.IsActive);
+
+            return phone?.GetFullNumber();
         }
 
 

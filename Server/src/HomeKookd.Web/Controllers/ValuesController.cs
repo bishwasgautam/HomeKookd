@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeKookd.API.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Route("api/values")]
     public class ValuesController : Controller
     {
         // GET api/values

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.ComponentModel.DataAnnotations;
 using HomeKookd.DataAccess.HomeKookdMainContext.Entities.Enums;
 using HomeKookd.Domain;
@@ -8,8 +9,14 @@ namespace HomeKookd.Services.DTOs
 {
     public class UserDto : IValidatable
     {
+
+        public UserDto()
+        {
+            ValidationResult = new ValidationResult();
+        }
         public int Id { get; set; }
-        public bool IsValid { get; set; }
+        public bool IsValid => ValidationResult.Errors.Count == 0; 
+        
 
         public string UserName { get; set; }
 

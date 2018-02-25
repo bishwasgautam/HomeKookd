@@ -19,4 +19,9 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\HomeKookd.Services\HomeKookd.Services.csproj" />
+    <ProjectReference Include="..\..\src\HomeKookd.Web\HomeKookd.API.csproj" />
+  </ItemGroup>
+
 </Project>

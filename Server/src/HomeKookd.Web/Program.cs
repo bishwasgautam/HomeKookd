@@ -20,8 +20,8 @@ namespace HomeKookd.API
                     // delete all default configuration providers
                     config.Sources.Clear();
                     //config.AddJsonFile("myconfig.json", optional: true);
-                    config.AddJsonFile($"appsettings.*.json", optional: true);
-                    config.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true);
+                    config.AddJsonFile("appsettings.json", true);
+                    config.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", true);
                 })
                 .Build();
     }

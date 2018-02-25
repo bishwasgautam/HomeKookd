@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HomeKookd.Repositories
 {
     public abstract class RepositoryBase<TDomainType, TDatabaseType> : IRepository<TDomainType, TDatabaseType>
-        where TDomainType : class, IDomainBase where TDatabaseType : class, IIdentifyable, new()
+        where TDomainType : class, IDomainBase where TDatabaseType : class, IIdentifyable, IAuditable, new()
     {
         private IDataContext _dataContext;
         private IConverter<TDomainType, TDatabaseType> _converter;
@@ -48,8 +48,16 @@ namespace HomeKookd.Repositories
         public void Add(TDomainType domainObj, int? modifiedBy = null, DateTime? modifiedDate = null)
         {
             TDatabaseType entity = RetrieveDatabaseTypeFrom(domainObj, modifiedBy, modifiedDate);
+
             if (entity != null)
+            {
+                entity.CreatedDateTime = DateTime.UtcNow;
+                entity.LastUpdatedDateTime = null;
+                entity.IsActive = true;
+
                 CreateSet().Add(entity); // adds the entire object graph
+            }
+               
         }
 
         /// <summary>
@@ -63,7 +71,12 @@ namespace HomeKookd.Repositories
         {
             TDatabaseType entity = RetrieveDatabaseTypeFrom(domainObj, modifiedBy, modifiedDate);
             if (entity != null)
+            {
+                entity.LastUpdatedDateTime = DateTime.UtcNow;
+                
                 _dataContext.SetEntityState(entity, EntityState.Modified);
+            }
+               
         }
 
         public void Delete(TDomainType domainObj, int? modifiedBy = null, DateTime? modifiedDate = null)

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HomeKookd.Domain\HomeKookd.Domain.csproj" />
     <ProjectReference Include="..\src\HomeKookd.DataAccess\HomeKookd.DataAccess.csproj" />
+    <ProjectReference Include="..\src\HomeKookd.Infrastructure\HomeKookd.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
