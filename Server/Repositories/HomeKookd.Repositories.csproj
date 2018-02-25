@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="automapper" Version="6.1.1" />
+    <PackageReference Include="FluentValidation" Version="7.1.1" />
+    <PackageReference Include="System.Device.Location.Portable" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeKookd.Domain\HomeKookd.Domain.csproj" />
+    <ProjectReference Include="..\src\HomeKookd.DataAccess\HomeKookd.DataAccess.csproj" />
+    <ProjectReference Include="..\src\HomeKookd.Infrastructure\HomeKookd.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

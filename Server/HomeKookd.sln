@@ -5,15 +5,23 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.API", "src\HomeKookd.Web\HomeKookd.API.csproj", "{A61CD15C-989A-4A6A-882C-545A8A665B6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeKookd.Services", "src\HomeKookd.Services\HomeKookd.Services.csproj", "{6C3D8449-C8FD-4E7D-8C82-32CA2FED1F3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.Services", "src\HomeKookd.Services\HomeKookd.Services.csproj", "{6C3D8449-C8FD-4E7D-8C82-32CA2FED1F3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeKookd.DataAccess", "src\HomeKookd.DataAccess\HomeKookd.DataAccess.csproj", "{EDE0628B-A4BF-4689-AC6F-D8B14BCE95DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.DataAccess", "src\HomeKookd.DataAccess\HomeKookd.DataAccess.csproj", "{EDE0628B-A4BF-4689-AC6F-D8B14BCE95DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeKookd.Common", "src\HomeKookd.Common\HomeKookd.Common.csproj", "{35FB0226-A856-4557-91FB-E71D3B1342CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.Common", "src\HomeKookd.Common\HomeKookd.Common.csproj", "{35FB0226-A856-4557-91FB-E71D3B1342CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeKookd.Infrastructure", "src\HomeKookd.Infrastructure\HomeKookd.Infrastructure.csproj", "{58C7D99E-C31D-468C-9DB7-77CBE51085B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.Infrastructure", "src\HomeKookd.Infrastructure\HomeKookd.Infrastructure.csproj", "{58C7D99E-C31D-468C-9DB7-77CBE51085B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeKookd.DependencyResolution", "src\HomeKookd.DependencyResolution\HomeKookd.DependencyResolution.csproj", "{6F9A4110-96AC-4839-9190-0D86935DB941}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.DependencyResolution", "src\HomeKookd.DependencyResolution\HomeKookd.DependencyResolution.csproj", "{6F9A4110-96AC-4839-9190-0D86935DB941}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.Repositories", "Repositories\HomeKookd.Repositories.csproj", "{A705FFF0-7DAB-45D4-A971-0DEF6AD87557}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.Domain", "HomeKookd.Domain\HomeKookd.Domain.csproj", "{891C9984-37B2-46A1-968D-17EFFBCD9D28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeKookd.AuthTests", "tests\HomeKookd.AuthTests\HomeKookd.AuthTests.csproj", "{3512E4BA-29B2-43A7-9DC5-0DAC62F2E008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeKookd.Resources", "Resources\HomeKookd.Resources.csproj", "{8B5B02BA-0125-469D-87D4-2AF033D48EDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +53,22 @@ Global
 		{6F9A4110-96AC-4839-9190-0D86935DB941}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F9A4110-96AC-4839-9190-0D86935DB941}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F9A4110-96AC-4839-9190-0D86935DB941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A705FFF0-7DAB-45D4-A971-0DEF6AD87557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A705FFF0-7DAB-45D4-A971-0DEF6AD87557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A705FFF0-7DAB-45D4-A971-0DEF6AD87557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A705FFF0-7DAB-45D4-A971-0DEF6AD87557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{891C9984-37B2-46A1-968D-17EFFBCD9D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{891C9984-37B2-46A1-968D-17EFFBCD9D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{891C9984-37B2-46A1-968D-17EFFBCD9D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{891C9984-37B2-46A1-968D-17EFFBCD9D28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3512E4BA-29B2-43A7-9DC5-0DAC62F2E008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3512E4BA-29B2-43A7-9DC5-0DAC62F2E008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3512E4BA-29B2-43A7-9DC5-0DAC62F2E008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3512E4BA-29B2-43A7-9DC5-0DAC62F2E008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B5B02BA-0125-469D-87D4-2AF033D48EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B5B02BA-0125-469D-87D4-2AF033D48EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B5B02BA-0125-469D-87D4-2AF033D48EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B5B02BA-0125-469D-87D4-2AF033D48EDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
